@@ -18,17 +18,21 @@ const HALF_LIFE_PERIOD = 5730;/**период полураспада t1/2*/
  *
  */
 function dateSample(sampleActivity) {
-  if (typeof(sampleActivity) === 'Number' ){
-    let a = sampleActivity;
-  let dateSample;
-  dateSample = Math.ceil(Math.log(MODERN_ACTIVITY / a ) / ( 0.693 / HALF_LIFE_PERIOD), 1);
-  return dateSample;
-  }
-
-  else {
+  if (typeof(sampleActivity) != 'string') {
     return false;
- 
   }
+  let a = Number(sampleActivity);
+  let dateSample;
+  if (!isNaN(a) && a > 0) {
+    dateSample = Math.log(MODERN_ACTIVITY / sampleActivity ) / ( 0.693 / HALF_LIFE_PERIOD);
+
+    if (dateSample < 0) {
+      return false;
+    }
+    return Math.ceil(dateSample);
+  }
+  return false;
+  
 }
 
 module.exports = {
