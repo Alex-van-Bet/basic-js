@@ -1,4 +1,6 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const {
+  NotImplementedError
+} = require('../extensions/index.js');
 
 /**
  * Create a repeating string based on the given parameters
@@ -12,13 +14,36 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  * repeater('STRING', { repeatTimes: 3, separator: '**', 
  * addition: 'PLUS', additionRepeatTimes: 3, additionSeparator: '00' })
- * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
+ * => 
+ *'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
+  "STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS"
  *
  */
-function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+  function repeater(str, options) {
+    let repeatTime = +options.repeatTimes || (1);
+    let separator = (options.separator) || ('+');
+    let addition = (String(options.addition)) || ('');
+    let additionRepeatTimes = (options.additionRepeatTimes) || (1);
+    let additionSeparator = (options.additionSeparator) || ('|');
+    let add_addition = [];
+
+    if (addition === 'undefined') {
+      addition = '';
+    }
+
+    for (let i = 1; i <= additionRepeatTimes; i++) {
+      add_addition.push(addition);
+    }
+  
+    let new_str = str + add_addition.join(additionSeparator);
+    let new_arr = [];
+  
+    for (let j = 1; j <= repeatTime; j++) {
+      new_arr.push(new_str);
+    }
+    
+    return(new_arr.join(separator));
+  }
 
 module.exports = {
   repeater
